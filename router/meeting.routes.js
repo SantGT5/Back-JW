@@ -9,7 +9,7 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
 
 router.post(
-  "/meeting/:id",
+  "/newmeeting/:id",
   isAuthenticated,
   attachCurrentUser,
   async (req, res) => {
@@ -54,6 +54,22 @@ router.post(
       return res.status(400).json({
         msg: "An error occured during your submission. Please, try again.",
       });
+    }
+  }
+);
+
+router.get(
+  "/allmeeting",
+  isAuthenticated,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const response = await MeetingModel.find({});
+
+      return res.status(200).json(response);
+    } catch (err) {
+      console.log(err);
+      return res.status.json({ msg: "There is no meeting to show." });
     }
   }
 );

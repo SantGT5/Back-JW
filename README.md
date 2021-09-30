@@ -17,3 +17,8 @@ REACT_APP_URL=http://localhost:3000
 E instalar as dependecias com o seguinte comando:
 
 $ npm install
+
+
+Para levantar o servidor executar comando:
+
+$ npm start

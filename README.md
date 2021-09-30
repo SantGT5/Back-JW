@@ -2,8 +2,7 @@
 
 Quando realizar o clone será preciso criar o documento .env:
 
-# IMPORTANTE!!! O .env está comentado no .gitignore por questões didáticas, 
-# descomentar antes de fazer o primeiro commit!!!! Variáveis de ambiente     # jamais devem estar disponíveis em repositórios do git
+
 
 TOKEN_SIGN_SECRET=SZCQpboHu&S4
 CLOUDINARY_NAME=dcnhmotrj

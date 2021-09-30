@@ -9,6 +9,7 @@ const MeetingSchema = new mongoose.Schema({
   ],
   date: { type: Date, default: Date.now, trim: true },
   responsible: { type: String, require: true, trim: true },
+  meetingID: { type: String, trim: true },
 });
 
 module.exports = mongoose.model("Meeting", MeetingSchema);

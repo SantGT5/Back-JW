@@ -9,24 +9,43 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
 
 router.post(
-  "/meeting",
+  "/meeting/:id",
   isAuthenticated,
   attachCurrentUser,
   async (req, res) => {
     try {
       const { name, timer } = req.body;
-      console.log(name, timer);
-      const response = await MeetingModel.create({
-        meetings: [
+      const { id } = req.params;
+
+      console.log(id);
+
+      const findMeetID = await MeetingModel.findOne({
+        meetingID: id,
+      });
+
+      if (findMeetID) {
+        const response = await MeetingModel.findOneAndUpdate(
+          { meetingID: id },
           {
+            $push: {
+              meetings: {
+                name: name,
+                timer: timer,
+              },
+            },
+          }
+        );
+        return res.status(201).json(response);
+      } else {
+        const response = await MeetingModel.create({
+          meetings: {
             name: name,
             timer: timer,
           },
-        ],
-      });
-
-      console.log(response);
-      return res.status(201).json(response);
+          meetingID: id,
+        });
+        return res.status(201).json(response);
+      }
     } catch (err) {
       console.log(err);
       return res.status(400).json({

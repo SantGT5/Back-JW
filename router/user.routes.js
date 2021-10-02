@@ -81,7 +81,7 @@ router.post("/login", async (req, res) => {
       !email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm)
     ) {
       return res.status(400).json({
-        msg: "The username you entered doesn't belong to an account. Please check your username and try again.",
+        msg: "La dirección de correo o la contraseña no son correctas.",
       });
     }
 
@@ -107,7 +107,7 @@ router.post("/login", async (req, res) => {
       });
     } else {
       return res.status(401).json({
-        msg: "Sorry, your password or email password was incorrect. Please try again.",
+        msg: "Sorry, your password or email password was incorrect.",
       });
     }
   } catch (err) {
@@ -118,7 +118,6 @@ router.post("/login", async (req, res) => {
 
 router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
   try {
-
     const loggedInUser = req.currentUser;
 
     if (loggedInUser) {

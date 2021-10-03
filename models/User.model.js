@@ -12,9 +12,9 @@ const UserSchema = new mongoose.Schema({
   passwordHash: { type: String, required: true },
   role: {
     type: String,
-    enum: ["ADMIN", "USER"],
+    enum: ["ADMIN", "RESPONSABLE", "PRESIDENTE", "CONVIDADO"],
     required: true,
-    default: "USER",
+    default: "CONVIDADO",
   },
 });
 

@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: ["ADMIN", "RESPONSABLE", "PRESIDENTE", "CONVIDADO"],
     required: true,
+    default: "CONVIDADO",
   },
 });
 

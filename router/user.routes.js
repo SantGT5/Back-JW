@@ -40,7 +40,7 @@ router.post("/signup", async (req, res) => {
     const userEmail = await UserModel.findOne({ email });
 
     if (userEmail) {
-      return res.status(404).json({ msg: "E-mail already exists" });
+      return res.status(404).json({ msg: "Dirección de correo eletrónico ya está en uso." });
     }
 
     // Gera o salt

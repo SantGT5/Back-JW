@@ -9,7 +9,7 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
 
 router.post(
-  "/newmeeting/:id",
+  "/meeting/:id",
   isAuthenticated,
   attachCurrentUser,
   async (req, res) => {

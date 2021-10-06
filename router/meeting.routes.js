@@ -14,10 +14,7 @@ router.post(
   attachCurrentUser,
   async (req, res) => {
     try {
-      const formData = req.body;
       const { id } = req.params;
-
-console.log(formData)
 
       const findMeetID = await MeetingModel.findOne({
         meetingID: id,
@@ -26,7 +23,7 @@ console.log(formData)
       if (findMeetID) {
         const response = await MeetingModel.findOneAndUpdate(
           { meetingID: id },
-          {$push: {meetings: req.body}}
+          {$set: {meetings: req.body}}
         );
 
         const result = await MeetingModel.findOne({

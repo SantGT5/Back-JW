@@ -14,8 +14,10 @@ router.post(
   attachCurrentUser,
   async (req, res) => {
     try {
-      const { name, timer } = req.body;
+      const formData = req.body;
       const { id } = req.params;
+
+console.log(formData)
 
       const findMeetID = await MeetingModel.findOne({
         meetingID: id,
@@ -24,14 +26,7 @@ router.post(
       if (findMeetID) {
         const response = await MeetingModel.findOneAndUpdate(
           { meetingID: id },
-          {
-            $push: {
-              meetings: {
-                name: name,
-                timer: timer,
-              },
-            },
-          }
+          {$push: {meetings: req.body}}
         );
 
         const result = await MeetingModel.findOne({
@@ -41,11 +36,9 @@ router.post(
         return res.status(201).json(result);
       } else {
         const response = await MeetingModel.create({
-          meetings: {
-            name: name,
-            timer: timer,
-          },
-          meetingID: id,
+          
+          meetings: req.body,
+          meetingID: id ,
         });
         return res.status(201).json(response);
       }

@@ -131,6 +131,29 @@ router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
   }
 });
 
+router.post("/founduser/:id", isAuthenticated, attachCurrentUser, async (req, res) => {
+  try {
+    const loggedInUser = req.currentUser;
+    const {id} = req.params
+
+    console.log("seu param -> ", id)
+
+    if (loggedInUser) {
+
+      const response = await UserModel.findById({
+        _id: id
+      })
+      return res.status(200).json(response);
+      
+    } else {
+      return res.status(404).json({ msg: "User not found." });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: JSON.stringify(err) });
+  }
+});
+
 router.put(
   "/edite/:id",
   isAuthenticated,

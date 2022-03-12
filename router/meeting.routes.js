@@ -9,12 +9,11 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
 
 router.post(
-  "/newmeeting/:id",
+  "/meeting/:id",
   isAuthenticated,
   attachCurrentUser,
   async (req, res) => {
     try {
-      const { name, timer } = req.body;
       const { id } = req.params;
 
       const findMeetID = await MeetingModel.findOne({
@@ -24,14 +23,7 @@ router.post(
       if (findMeetID) {
         const response = await MeetingModel.findOneAndUpdate(
           { meetingID: id },
-          {
-            $push: {
-              meetings: {
-                name: name,
-                timer: timer,
-              },
-            },
-          }
+          {$set: {meetings: req.body}}
         );
 
         const result = await MeetingModel.findOne({
@@ -41,11 +33,9 @@ router.post(
         return res.status(201).json(result);
       } else {
         const response = await MeetingModel.create({
-          meetings: {
-            name: name,
-            timer: timer,
-          },
-          meetingID: id,
+          
+          meetings: req.body,
+          meetingID: id ,
         });
         return res.status(201).json(response);
       }
